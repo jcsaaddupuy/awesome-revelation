@@ -139,18 +139,19 @@ function expose(rule, s)
                 awful.client.floating.set(c, true)
             end
         end
+        t.activated = false
     end
 
     capi.keygrabber.run(keyboardhandler(restore))
 
-    
+
     local pressedMiddle = false
     capi.mousegrabber.run(function(mouse)
         local c = awful.mouse.client_under_pointer()
         if mouse.buttons[1] == true then
             selectfn(restore)(c)
             return false
-        elseif mouse.buttons[2] == true and pressedMiddle == false and c ~= nil then -- is true whenever the button is down. 
+        elseif mouse.buttons[2] == true and pressedMiddle == false and c ~= nil then -- is true whenever the button is down.
             pressedMiddle = true -- extra variable needed to prevent script from spam-closing windows
             c:kill()
             return true
